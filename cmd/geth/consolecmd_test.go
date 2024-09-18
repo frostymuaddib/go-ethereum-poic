@@ -26,7 +26,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
 )
 
 const (

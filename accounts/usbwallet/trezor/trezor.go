@@ -16,7 +16,7 @@
 
 // This file contains the implementation for interacting with the Trezor hardware
 // wallets. The wire protocol spec can be found on the SatoshiLabs website:
-// https://docs.trezor.io/trezor-firmware/common/message-workflows.html
+// docs.trezor.io/trezor-firmware/common/message-workflows.html
 
 // !!! STAHP !!!
 //
@@ -36,7 +36,7 @@
 // If in doubt, reach out to @karalabe.
 
 // To regenerate the protocol files in this package:
-//   - Download the latest protoc https://github.com/protocolbuffers/protobuf/releases
+//   - Download the latest protoc github.com/protocolbuffers/protobuf/releases
 //   - Build with the usual `./configure && make` and ensure it's on your $PATH
 //   - Delete all the .proto and .pb.go files, pull in fresh ones from Trezor
 //   - Grab the latest Go plugin `go get -u google.golang.org/protobuf/cmd/protoc-gen-go`

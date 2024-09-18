@@ -5,15 +5,15 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/consensus/misc/eip4844"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/vm"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common/math"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus/misc/eip4844"
+	"github.com/frostymuaddib/go-ethereum-poic/core"
+	"github.com/frostymuaddib/go-ethereum-poic/core/vm"
 
 	// Force-load native and js packages, to trigger registration
-	_ "github.com/ethereum/go-ethereum/eth/tracers/js"
-	_ "github.com/ethereum/go-ethereum/eth/tracers/native"
+	_ "github.com/frostymuaddib/go-ethereum-poic/eth/tracers/js"
+	_ "github.com/frostymuaddib/go-ethereum-poic/eth/tracers/native"
 )
 
 // camel converts a snake cased input string into a camel cased output.

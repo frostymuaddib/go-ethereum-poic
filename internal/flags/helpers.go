@@ -23,9 +23,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/internal/version"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/version"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
 	"github.com/mattn/go-isatty"
 	"github.com/urfave/cli/v2"
 )
@@ -74,7 +74,7 @@ var migrationApplied = map[*cli.Command]struct{}{}
 // i.e. in the subcommand Action function of 'account new', ctx.Bool("lightkdf)
 // will return true even if --lightkdf is set as a global option.
 //
-// This function may become unnecessary when https://github.com/urfave/cli/pull/1245 is merged.
+// This function may become unnecessary when github.com/urfave/cli/pull/1245 is merged.
 func MigrateGlobalFlags(ctx *cli.Context) {
 	var iterate func(cs []*cli.Command, fn func(*cli.Command))
 	iterate = func(cs []*cli.Command, fn func(*cli.Command)) {

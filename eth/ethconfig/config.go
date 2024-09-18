@@ -21,19 +21,20 @@ import (
 	"errors"
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/consensus/beacon"
-	"github.com/ethereum/go-ethereum/consensus/clique"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/txpool/blobpool"
-	"github.com/ethereum/go-ethereum/core/txpool/legacypool"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/eth/gasprice"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/miner"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus/beacon"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus/clique"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus/ethash"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus/misanu"
+	"github.com/frostymuaddib/go-ethereum-poic/core"
+	"github.com/frostymuaddib/go-ethereum-poic/core/txpool/blobpool"
+	"github.com/frostymuaddib/go-ethereum-poic/core/txpool/legacypool"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/downloader"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/gasprice"
+	"github.com/frostymuaddib/go-ethereum-poic/ethdb"
+	"github.com/frostymuaddib/go-ethereum-poic/miner"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
 )
 
 // FullNodeGPO contains default gasprice oracle settings for full node.
@@ -165,6 +166,11 @@ type Config struct {
 // Clique is allowed for now to live standalone, but ethash is forbidden and can
 // only exist on already merged networks.
 func CreateConsensusEngine(config *params.ChainConfig, db ethdb.Database) (consensus.Engine, error) {
+	
+	if config.PoIC != nil {
+		return misanu.New(config.PoIC, db), nil
+	}
+	
 	// Geth v1.14.0 dropped support for non-merged networks in any consensus
 	// mode. If such a network is requested, reject startup.
 	if !config.TerminalTotalDifficultyPassed {

@@ -1,4 +1,4 @@
-module github.com/ethereum/go-ethereum
+module github.com/frostymuaddib/go-ethereum-poic
 
 go 1.22
 
@@ -20,9 +20,11 @@ require (
 	github.com/crate-crypto/go-ipa v0.0.0-20240223125850-b1e8a79f509c
 	github.com/crate-crypto/go-kzg-4844 v1.0.0
 	github.com/davecgh/go-spew v1.1.1
+	github.com/deckarep/golang-set v1.8.0
 	github.com/deckarep/golang-set/v2 v2.6.0
 	github.com/donovanhide/eventsource v0.0.0-20210830082556-c59027999da0
 	github.com/dop251/goja v0.0.0-20230605162241-28ee0ee714f3
+	github.com/edsrzf/mmap-go v1.1.0
 	github.com/ethereum/c-kzg-4844 v1.0.0
 	github.com/ethereum/go-verkle v0.1.1-0.20240829091221-dffa7562dbe9
 	github.com/fatih/color v1.16.0

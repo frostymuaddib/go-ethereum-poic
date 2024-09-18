@@ -17,17 +17,17 @@
 package core
 
 import (
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/lru"
-	"github.com/ethereum/go-ethereum/consensus/beacon"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/stateless"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/trie"
-	"github.com/ethereum/go-ethereum/triedb"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common/lru"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus/beacon"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus/ethash"
+	"github.com/frostymuaddib/go-ethereum-poic/core/state"
+	"github.com/frostymuaddib/go-ethereum-poic/core/stateless"
+	"github.com/frostymuaddib/go-ethereum-poic/core/types"
+	"github.com/frostymuaddib/go-ethereum-poic/core/vm"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
+	"github.com/frostymuaddib/go-ethereum-poic/trie"
+	"github.com/frostymuaddib/go-ethereum-poic/triedb"
 )
 
 // ExecuteStateless runs a stateless execution based on a witness, verifies

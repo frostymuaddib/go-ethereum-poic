@@ -30,15 +30,15 @@ import (
 	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/route53"
 	"github.com/aws/aws-sdk-go-v2/service/route53/types"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/p2p/dnsdisc"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
+	"github.com/frostymuaddib/go-ethereum-poic/p2p/dnsdisc"
 	"github.com/urfave/cli/v2"
 )
 
 const (
 	// Route53 limits change sets to 32k of 'RDATA size'. Change sets are also limited to
 	// 1000 items. UPSERTs count double.
-	// https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-requests-changeresourcerecordsets
+	// docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html#limits-api-requests-changeresourcerecordsets
 	route53ChangeSizeLimit  = 32000
 	route53ChangeCountLimit = 1000
 	maxRetryLimit           = 60

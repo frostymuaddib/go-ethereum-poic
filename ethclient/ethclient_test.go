@@ -25,17 +25,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/consensus/ethash"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/eth/ethconfig"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/frostymuaddib/go-ethereum-poic"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus/ethash"
+	"github.com/frostymuaddib/go-ethereum-poic/core"
+	"github.com/frostymuaddib/go-ethereum-poic/core/types"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto"
+	"github.com/frostymuaddib/go-ethereum-poic/eth"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/ethconfig"
+	"github.com/frostymuaddib/go-ethereum-poic/node"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
+	"github.com/frostymuaddib/go-ethereum-poic/rpc"
 )
 
 // Verify that Client implements the ethereum interfaces.

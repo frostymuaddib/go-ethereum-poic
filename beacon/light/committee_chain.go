@@ -23,14 +23,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/beacon/params"
-	"github.com/ethereum/go-ethereum/beacon/types"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/lru"
-	"github.com/ethereum/go-ethereum/common/mclock"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/frostymuaddib/go-ethereum-poic/beacon/params"
+	"github.com/frostymuaddib/go-ethereum-poic/beacon/types"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common/lru"
+	"github.com/frostymuaddib/go-ethereum-poic/common/mclock"
+	"github.com/frostymuaddib/go-ethereum-poic/core/rawdb"
+	"github.com/frostymuaddib/go-ethereum-poic/ethdb"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
 )
 
 var (

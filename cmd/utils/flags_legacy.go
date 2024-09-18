@@ -19,8 +19,8 @@ package utils
 import (
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/eth/ethconfig"
-	"github.com/ethereum/go-ethereum/internal/flags"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/ethconfig"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/flags"
 	"github.com/urfave/cli/v2"
 )
 
@@ -138,16 +138,16 @@ var (
 		Value:    ethconfig.Defaults.Miner.Recommit,
 		Category: flags.DeprecatedCategory,
 	}
-	MinerEtherbaseFlag = &cli.StringFlag{
-		Name:     "miner.etherbase",
-		Usage:    "0x prefixed public address for block mining rewards (deprecated)",
-		Category: flags.DeprecatedCategory,
-	}
-	MiningEnabledFlag = &cli.BoolFlag{
-		Name:     "mine",
-		Usage:    "Enable mining (deprecated)",
-		Category: flags.DeprecatedCategory,
-	}
+	//MinerEtherbaseFlag = &cli.StringFlag{
+	//	Name:     "miner.etherbase",
+	//	Usage:    "0x prefixed public address for block mining rewards (deprecated)",
+	//	Category: flags.DeprecatedCategory,
+	//}
+	// MiningEnabledFlag = &cli.BoolFlag{
+	// 	Name:     "mine",
+	// 	Usage:    "Enable mining (deprecated)",
+	// 	Category: flags.DeprecatedCategory,
+	// }
 	MetricsEnabledExpensiveFlag = &cli.BoolFlag{
 		Name:     "metrics.expensive",
 		Usage:    "Enable expensive metrics collection and reporting (deprecated)",

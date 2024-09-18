@@ -19,9 +19,9 @@ package core
 import (
 	"context"
 
-	"github.com/ethereum/go-ethereum/internal/ethapi"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/ethapi"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
+	"github.com/frostymuaddib/go-ethereum-poic/rpc"
 )
 
 type StdIOUI struct {

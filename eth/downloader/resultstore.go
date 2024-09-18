@@ -21,7 +21,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/frostymuaddib/go-ethereum-poic/core/types"
 )
 
 // resultStore implements a structure for maintaining fetchResults, tracking their

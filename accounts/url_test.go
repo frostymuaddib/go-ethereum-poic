@@ -22,7 +22,7 @@ import (
 
 func TestURLParsing(t *testing.T) {
 	t.Parallel()
-	url, err := parseURL("https://ethereum.org")
+	url, err := parseURL("ethereum.org")
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
@@ -43,8 +43,8 @@ func TestURLParsing(t *testing.T) {
 func TestURLString(t *testing.T) {
 	t.Parallel()
 	url := URL{Scheme: "https", Path: "ethereum.org"}
-	if url.String() != "https://ethereum.org" {
-		t.Errorf("expected: %v, got: %v", "https://ethereum.org", url.String())
+	if url.String() != "ethereum.org" {
+		t.Errorf("expected: %v, got: %v", "ethereum.org", url.String())
 	}
 
 	url = URL{Scheme: "", Path: "ethereum.org"}
@@ -60,15 +60,15 @@ func TestURLMarshalJSON(t *testing.T) {
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
-	if string(json) != "\"https://ethereum.org\"" {
-		t.Errorf("expected: %v, got: %v", "\"https://ethereum.org\"", string(json))
+	if string(json) != "\"ethereum.org\"" {
+		t.Errorf("expected: %v, got: %v", "\"ethereum.org\"", string(json))
 	}
 }
 
 func TestURLUnmarshalJSON(t *testing.T) {
 	t.Parallel()
 	url := &URL{}
-	err := url.UnmarshalJSON([]byte("\"https://ethereum.org\""))
+	err := url.UnmarshalJSON([]byte("\"ethereum.org\""))
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}

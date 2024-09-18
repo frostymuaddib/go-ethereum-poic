@@ -15,7 +15,7 @@
 // along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
 
 // This package implements support for smartcard-based hardware wallets such as
-// the one written by Status: https://github.com/status-im/hardware-wallet
+// the one written by Status: github.com/status-im/hardware-wallet
 //
 // This implementation of smartcard wallets have a different interaction process
 // to other types of hardware wallet. The process works like this:
@@ -41,10 +41,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/event"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
 	pcsc "github.com/gballet/go-libpcsclite"
 )
 

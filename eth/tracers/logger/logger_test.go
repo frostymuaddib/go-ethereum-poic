@@ -22,10 +22,10 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/core/state"
+	"github.com/frostymuaddib/go-ethereum-poic/core/vm"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
 	"github.com/holiman/uint256"
 )
 
@@ -77,7 +77,7 @@ func TestStoreCapture(t *testing.T) {
 }
 
 // Tests that blank fields don't appear in logs when JSON marshalled, to reduce
-// logs bloat and confusion. See https://github.com/ethereum/go-ethereum/issues/24487
+// logs bloat and confusion. See github.com/frostymuaddib/go-ethereum-poic/issues/24487
 func TestStructLogMarshalingOmitEmpty(t *testing.T) {
 	tests := []struct {
 		name string

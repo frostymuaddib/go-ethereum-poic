@@ -21,10 +21,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/beacon/params"
-	"github.com/ethereum/go-ethereum/beacon/types"
-	"github.com/ethereum/go-ethereum/common/mclock"
-	"github.com/ethereum/go-ethereum/ethdb/memorydb"
+	"github.com/frostymuaddib/go-ethereum-poic/beacon/params"
+	"github.com/frostymuaddib/go-ethereum-poic/beacon/types"
+	"github.com/frostymuaddib/go-ethereum-poic/common/mclock"
+	"github.com/frostymuaddib/go-ethereum-poic/ethdb/memorydb"
 )
 
 var (

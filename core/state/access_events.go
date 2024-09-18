@@ -19,10 +19,10 @@ package state
 import (
 	"maps"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/trie/utils"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common/math"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
+	"github.com/frostymuaddib/go-ethereum-poic/trie/utils"
 	"github.com/holiman/uint256"
 )
 

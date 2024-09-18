@@ -21,7 +21,7 @@ import (
 	"net"
 	"net/netip"
 
-	"github.com/ethereum/go-ethereum/metrics"
+	"github.com/frostymuaddib/go-ethereum-poic/metrics"
 )
 
 const (

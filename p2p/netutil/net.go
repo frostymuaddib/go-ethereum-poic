@@ -33,7 +33,7 @@ var special4, special6 Netlist
 
 func init() {
 	// Lists from RFC 5735, RFC 5156,
-	// https://www.iana.org/assignments/iana-ipv4-special-registry/
+	// www.iana.org/assignments/iana-ipv4-special-registry/
 	special4.Add("0.0.0.0/8")          // "This" network.
 	special4.Add("192.0.0.0/29")       // IPv4 Service Continuity
 	special4.Add("192.0.0.9/32")       // PCP Anycast

@@ -30,13 +30,13 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/kzg4844"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common/hexutil"
+	"github.com/frostymuaddib/go-ethereum-poic/common/math"
+	"github.com/frostymuaddib/go-ethereum-poic/core/types"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto/kzg4844"
 	"github.com/holiman/uint256"
 )
 
@@ -95,7 +95,7 @@ type SendTxArgs struct {
 
 	// We accept "data" and "input" for backwards-compatibility reasons.
 	// "input" is the newer name and should be preferred by clients.
-	// Issue detail: https://github.com/ethereum/go-ethereum/issues/15628
+	// Issue detail: github.com/frostymuaddib/go-ethereum-poic/issues/15628
 	Data  *hexutil.Bytes `json:"data,omitempty"`
 	Input *hexutil.Bytes `json:"input,omitempty"`
 
@@ -360,7 +360,7 @@ type TypedDataDomain struct {
 // TypedDataAndHash is a helper function that calculates a hash for typed data conforming to EIP-712.
 // This hash can then be safely used to calculate a signature.
 //
-// See https://eips.ethereum.org/EIPS/eip-712 for the full specification.
+// See eips.ethereum.org/EIPS/eip-712 for the full specification.
 //
 // This gives context to the signed typed data and prevents signing of transactions.
 func TypedDataAndHash(typedData TypedData) ([]byte, string, error) {

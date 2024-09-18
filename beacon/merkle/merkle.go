@@ -22,8 +22,8 @@ import (
 	"errors"
 	"reflect"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common/hexutil"
 )
 
 // Value represents either a 32 byte leaf value or hash node in a binary merkle tree/partial proof.

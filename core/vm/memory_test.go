@@ -5,11 +5,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
 )
 
 func TestMemoryCopy(t *testing.T) {
-	// Test cases from https://eips.ethereum.org/EIPS/eip-5656#test-cases
+	// Test cases from eips.ethereum.org/EIPS/eip-5656#test-cases
 	for i, tc := range []struct {
 		dst, src, len uint64
 		pre           string

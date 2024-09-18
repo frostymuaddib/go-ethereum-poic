@@ -58,7 +58,7 @@ func readBits(bigint *big.Int, buf []byte) {
 	}
 }
 
-// This code is from https://github.com/ThePiachu/GoBit and implements
+// This code is from github.com/ThePiachu/GoBit and implements
 // several Koblitz elliptic curves over prime fields.
 //
 // The curve methods, internally, on Jacobian coordinates. For a given

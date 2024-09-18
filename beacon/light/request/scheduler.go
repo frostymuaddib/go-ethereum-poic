@@ -19,7 +19,7 @@ package request
 import (
 	"sync"
 
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
 )
 
 // Module represents a mechanism which is typically responsible for downloading

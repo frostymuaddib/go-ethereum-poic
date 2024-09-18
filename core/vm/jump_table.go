@@ -19,7 +19,7 @@ package vm
 import (
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
 )
 
 type (
@@ -120,8 +120,8 @@ func newMergeInstructionSet() JumpTable {
 // constantinople, istanbul, petersburg, berlin and london instructions.
 func newLondonInstructionSet() JumpTable {
 	instructionSet := newBerlinInstructionSet()
-	enable3529(&instructionSet) // EIP-3529: Reduction in refunds https://eips.ethereum.org/EIPS/eip-3529
-	enable3198(&instructionSet) // Base fee opcode https://eips.ethereum.org/EIPS/eip-3198
+	enable3529(&instructionSet) // EIP-3529: Reduction in refunds eips.ethereum.org/EIPS/eip-3529
+	enable3198(&instructionSet) // Base fee opcode eips.ethereum.org/EIPS/eip-3198
 	return validate(instructionSet)
 }
 
@@ -129,7 +129,7 @@ func newLondonInstructionSet() JumpTable {
 // constantinople, istanbul, petersburg and berlin instructions.
 func newBerlinInstructionSet() JumpTable {
 	instructionSet := newIstanbulInstructionSet()
-	enable2929(&instructionSet) // Gas cost increases for state access opcodes https://eips.ethereum.org/EIPS/eip-2929
+	enable2929(&instructionSet) // Gas cost increases for state access opcodes eips.ethereum.org/EIPS/eip-2929
 	return validate(instructionSet)
 }
 
@@ -138,9 +138,9 @@ func newBerlinInstructionSet() JumpTable {
 func newIstanbulInstructionSet() JumpTable {
 	instructionSet := newConstantinopleInstructionSet()
 
-	enable1344(&instructionSet) // ChainID opcode - https://eips.ethereum.org/EIPS/eip-1344
-	enable1884(&instructionSet) // Reprice reader opcodes - https://eips.ethereum.org/EIPS/eip-1884
-	enable2200(&instructionSet) // Net metered SSTORE - https://eips.ethereum.org/EIPS/eip-2200
+	enable1344(&instructionSet) // ChainID opcode - eips.ethereum.org/EIPS/eip-1344
+	enable1884(&instructionSet) // Reprice reader opcodes - eips.ethereum.org/EIPS/eip-1884
+	enable2200(&instructionSet) // Net metered SSTORE - eips.ethereum.org/EIPS/eip-2200
 
 	return validate(instructionSet)
 }

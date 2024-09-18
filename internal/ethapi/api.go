@@ -26,28 +26,28 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/accounts/scwallet"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/consensus/misc/eip1559"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/state"
-	"github.com/ethereum/go-ethereum/core/tracing"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/eth/gasestimator"
-	"github.com/ethereum/go-ethereum/eth/tracers/logger"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rlp"
-	"github.com/ethereum/go-ethereum/rpc"
-	"github.com/ethereum/go-ethereum/trie"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts/keystore"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts/scwallet"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common/hexutil"
+	"github.com/frostymuaddib/go-ethereum-poic/common/math"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus/misc/eip1559"
+	"github.com/frostymuaddib/go-ethereum-poic/core"
+	"github.com/frostymuaddib/go-ethereum-poic/core/state"
+	"github.com/frostymuaddib/go-ethereum-poic/core/tracing"
+	"github.com/frostymuaddib/go-ethereum-poic/core/types"
+	"github.com/frostymuaddib/go-ethereum-poic/core/vm"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/gasestimator"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/tracers/logger"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
+	"github.com/frostymuaddib/go-ethereum-poic/p2p"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
+	"github.com/frostymuaddib/go-ethereum-poic/rlp"
+	"github.com/frostymuaddib/go-ethereum-poic/rpc"
+	"github.com/frostymuaddib/go-ethereum-poic/trie"
 	"github.com/holiman/uint256"
 	"github.com/tyler-smith/go-bip39"
 )
@@ -547,7 +547,7 @@ func (api *PersonalAccountAPI) SignTransaction(ctx context.Context, args Transac
 //
 // The key used to calculate the signature is decrypted with the given password.
 //
-// https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-personal#personal-sign
+// geth.ethereum.org/docs/interacting-with-geth/rpc/ns-personal#personal-sign
 func (api *PersonalAccountAPI) Sign(ctx context.Context, data hexutil.Bytes, addr common.Address, passwd string) (hexutil.Bytes, error) {
 	// Look up the wallet containing the requested signer
 	account := accounts.Account{Address: addr}
@@ -575,7 +575,7 @@ func (api *PersonalAccountAPI) Sign(ctx context.Context, data hexutil.Bytes, add
 // Note, the signature must conform to the secp256k1 curve R, S and V values, where
 // the V value must be 27 or 28 for legacy reasons.
 //
-// https://geth.ethereum.org/docs/interacting-with-geth/rpc/ns-personal#personal-ecrecover
+// geth.ethereum.org/docs/interacting-with-geth/rpc/ns-personal#personal-ecrecover
 func (api *PersonalAccountAPI) EcRecover(ctx context.Context, data, sig hexutil.Bytes) (common.Address, error) {
 	if len(sig) != crypto.SignatureLength {
 		return common.Address{}, fmt.Errorf("signature must be %d bytes long", crypto.SignatureLength)
@@ -1863,7 +1863,7 @@ func (api *TransactionAPI) SendRawTransaction(ctx context.Context, input hexutil
 //
 // The account associated with addr must be unlocked.
 //
-// https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sign
+// github.com/ethereum/wiki/wiki/JSON-RPC#eth_sign
 func (api *TransactionAPI) Sign(addr common.Address, data hexutil.Bytes) (hexutil.Bytes, error) {
 	// Look up the wallet containing the requested signer
 	account := accounts.Account{Address: addr}

@@ -27,9 +27,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ethereum/go-ethereum/cmd/evm/internal/t8ntool"
-	"github.com/ethereum/go-ethereum/internal/cmdtest"
-	"github.com/ethereum/go-ethereum/internal/reexec"
+	"github.com/frostymuaddib/go-ethereum-poic/cmd/evm/internal/t8ntool"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/cmdtest"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/reexec"
 )
 
 func TestMain(m *testing.M) {

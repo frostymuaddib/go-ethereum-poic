@@ -26,24 +26,25 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/external"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/accounts/scwallet"
-	"github.com/ethereum/go-ethereum/accounts/usbwallet"
-	"github.com/ethereum/go-ethereum/beacon/blsync"
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/ethereum/go-ethereum/eth/catalyst"
-	"github.com/ethereum/go-ethereum/eth/ethconfig"
-	"github.com/ethereum/go-ethereum/internal/flags"
-	"github.com/ethereum/go-ethereum/internal/version"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/metrics"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts/external"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts/keystore"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts/scwallet"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts/usbwallet"
+	"github.com/frostymuaddib/go-ethereum-poic/beacon/blsync"
+	"github.com/frostymuaddib/go-ethereum-poic/cmd/utils"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common/hexutil"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/catalyst"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/ethconfig"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/flags"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/version"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/ethapi"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
+	"github.com/frostymuaddib/go-ethereum-poic/metrics"
+	"github.com/frostymuaddib/go-ethereum-poic/node"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
+	"github.com/frostymuaddib/go-ethereum-poic/rpc"
 	"github.com/naoina/toml"
 	"github.com/urfave/cli/v2"
 )
@@ -81,7 +82,7 @@ var tomlSettings = toml.Config{
 		}
 		var link string
 		if unicode.IsUpper(rune(rt.Name()[0])) && rt.PkgPath() != "main" {
-			link = fmt.Sprintf(", see https://godoc.org/%s#%s for available fields", rt.PkgPath(), rt.Name())
+			link = fmt.Sprintf(", see godoc.org/%s#%s for available fields", rt.PkgPath(), rt.Name())
 		}
 		return fmt.Errorf("field '%s' is not defined in %s%s", field, rt.String(), link)
 	},
@@ -181,7 +182,7 @@ func makeConfigNode(ctx *cli.Context) (*node.Node, gethConfig) {
 }
 
 // makeFullNode loads geth configuration and creates the Ethereum backend.
-func makeFullNode(ctx *cli.Context) *node.Node {
+func makeFullNode(ctx *cli.Context) (*node.Node, ethapi.Backend) {
 	stack, cfg := makeConfigNode(ctx)
 	if ctx.IsSet(utils.OverrideCancun.Name) {
 		v := ctx.Uint64(utils.OverrideCancun.Name)
@@ -250,7 +251,7 @@ func makeFullNode(ctx *cli.Context) *node.Node {
 			utils.Fatalf("failed to register catalyst service: %v", err)
 		}
 	}
-	return stack
+	return stack, backend
 }
 
 // dumpConfig is the dumpconfig command.

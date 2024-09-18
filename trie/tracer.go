@@ -19,7 +19,7 @@ package trie
 import (
 	"maps"
 
-	"github.com/ethereum/go-ethereum/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
 )
 
 // tracer tracks the changes of trie nodes. During the trie operations,

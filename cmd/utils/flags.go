@@ -35,46 +35,46 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	bparams "github.com/ethereum/go-ethereum/beacon/params"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/fdlimit"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/core/txpool/blobpool"
-	"github.com/ethereum/go-ethereum/core/txpool/legacypool"
-	"github.com/ethereum/go-ethereum/core/vm"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/kzg4844"
-	"github.com/ethereum/go-ethereum/eth"
-	"github.com/ethereum/go-ethereum/eth/catalyst"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/eth/ethconfig"
-	"github.com/ethereum/go-ethereum/eth/filters"
-	"github.com/ethereum/go-ethereum/eth/gasprice"
-	"github.com/ethereum/go-ethereum/eth/tracers"
-	"github.com/ethereum/go-ethereum/ethdb"
-	"github.com/ethereum/go-ethereum/ethdb/remotedb"
-	"github.com/ethereum/go-ethereum/ethstats"
-	"github.com/ethereum/go-ethereum/graphql"
-	"github.com/ethereum/go-ethereum/internal/ethapi"
-	"github.com/ethereum/go-ethereum/internal/flags"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/metrics"
-	"github.com/ethereum/go-ethereum/metrics/exp"
-	"github.com/ethereum/go-ethereum/metrics/influxdb"
-	"github.com/ethereum/go-ethereum/miner"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/p2p/enode"
-	"github.com/ethereum/go-ethereum/p2p/nat"
-	"github.com/ethereum/go-ethereum/p2p/netutil"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rpc"
-	"github.com/ethereum/go-ethereum/triedb"
-	"github.com/ethereum/go-ethereum/triedb/hashdb"
-	"github.com/ethereum/go-ethereum/triedb/pathdb"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts/keystore"
+	bparams "github.com/frostymuaddib/go-ethereum-poic/beacon/params"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common/fdlimit"
+	"github.com/frostymuaddib/go-ethereum-poic/core"
+	"github.com/frostymuaddib/go-ethereum-poic/core/rawdb"
+	"github.com/frostymuaddib/go-ethereum-poic/core/txpool/blobpool"
+	"github.com/frostymuaddib/go-ethereum-poic/core/txpool/legacypool"
+	"github.com/frostymuaddib/go-ethereum-poic/core/vm"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto/kzg4844"
+	"github.com/frostymuaddib/go-ethereum-poic/eth"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/catalyst"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/downloader"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/ethconfig"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/filters"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/gasprice"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/tracers"
+	"github.com/frostymuaddib/go-ethereum-poic/ethdb"
+	"github.com/frostymuaddib/go-ethereum-poic/ethdb/remotedb"
+	"github.com/frostymuaddib/go-ethereum-poic/ethstats"
+	"github.com/frostymuaddib/go-ethereum-poic/graphql"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/ethapi"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/flags"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
+	"github.com/frostymuaddib/go-ethereum-poic/metrics"
+	"github.com/frostymuaddib/go-ethereum-poic/metrics/exp"
+	"github.com/frostymuaddib/go-ethereum-poic/metrics/influxdb"
+	"github.com/frostymuaddib/go-ethereum-poic/miner"
+	"github.com/frostymuaddib/go-ethereum-poic/node"
+	"github.com/frostymuaddib/go-ethereum-poic/p2p"
+	"github.com/frostymuaddib/go-ethereum-poic/p2p/enode"
+	"github.com/frostymuaddib/go-ethereum-poic/p2p/nat"
+	"github.com/frostymuaddib/go-ethereum-poic/p2p/netutil"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
+	"github.com/frostymuaddib/go-ethereum-poic/rpc"
+	"github.com/frostymuaddib/go-ethereum-poic/triedb"
+	"github.com/frostymuaddib/go-ethereum-poic/triedb/hashdb"
+	"github.com/frostymuaddib/go-ethereum-poic/triedb/pathdb"
 	pcsclite "github.com/gballet/go-libpcsclite"
 	gopsutil "github.com/shirou/gopsutil/mem"
 	"github.com/urfave/cli/v2"
@@ -475,10 +475,20 @@ var (
 	}
 
 	// Miner settings
+	MiningEnabledFlag = &cli.BoolFlag{
+		Name:     "mine",
+		Usage:    "Enable mining",
+		Category: flags.MinerCategory,
+	}
 	MinerGasLimitFlag = &cli.Uint64Flag{
 		Name:     "miner.gaslimit",
 		Usage:    "Target gas ceiling for mined blocks",
 		Value:    ethconfig.Defaults.Miner.GasCeil,
+		Category: flags.MinerCategory,
+	}
+	MinerEtherbaseFlag = &cli.StringFlag{
+		Name:     "miner.etherbase",
+		Usage:    "0x prefixed public address for block mining rewards",
 		Category: flags.MinerCategory,
 	}
 	MinerGasPriceFlag = &flags.BigFlag{
@@ -496,6 +506,14 @@ var (
 		Name:     "miner.recommit",
 		Usage:    "Time interval to recreate the block being mined",
 		Value:    ethconfig.Defaults.Miner.Recommit,
+		Category: flags.MinerCategory,
+	}
+	MinerNewPayloadTimeout = &cli.DurationFlag{
+		Name:  "miner.newpayload-timeout",
+		Usage: "Specify the maximum time allowance for creating a new payload",
+
+		//FIXME: Ova vrednost je sta?
+		Value:    ethconfig.Defaults.Miner.NewPayloadTimeout,
 		Category: flags.MinerCategory,
 	}
 	MinerPendingFeeRecipientFlag = &cli.StringFlag{
@@ -922,7 +940,7 @@ Please note that --` + MetricsHTTPFlag.Name + ` must be set to start the server.
 	// Tags are part of every measurement sent to InfluxDB. Queries on tags are faster in InfluxDB.
 	// For example `host` tag could be used so that we can group all nodes and average a measurement
 	// across all of them, but also so that we can select a specific node and inspect its measurements.
-	// https://docs.influxdata.com/influxdb/v1.4/concepts/key_concepts/#tag-key
+	// docs.influxdata.com/influxdb/v1.4/concepts/key_concepts/#tag-key
 	MetricsInfluxDBTagsFlag = &cli.StringFlag{
 		Name:     "metrics.influxdb.tags",
 		Usage:    "Comma-separated InfluxDB tags (key/values) attached to all measurements",
@@ -1310,23 +1328,22 @@ func MakeAddress(ks *keystore.KeyStore, account string) (accounts.Account, error
 
 // setEtherbase retrieves the etherbase from the directly specified command line flags.
 func setEtherbase(ctx *cli.Context, cfg *ethconfig.Config) {
-	if ctx.IsSet(MinerEtherbaseFlag.Name) {
-		log.Warn("Option --miner.etherbase is deprecated as the etherbase is set by the consensus client post-merge")
+	if !ctx.IsSet(MinerEtherbaseFlag.Name) {
 		return
 	}
-	if !ctx.IsSet(MinerPendingFeeRecipientFlag.Name) {
-		return
-	}
-	addr := ctx.String(MinerPendingFeeRecipientFlag.Name)
+	addr := ctx.String(MinerEtherbaseFlag.Name)
+
 	if strings.HasPrefix(addr, "0x") || strings.HasPrefix(addr, "0X") {
 		addr = addr[2:]
 	}
 	b, err := hex.DecodeString(addr)
 	if err != nil || len(b) != common.AddressLength {
-		Fatalf("-%s: invalid pending block producer address %q", MinerPendingFeeRecipientFlag.Name, addr)
+		Fatalf("-%s: invalid etherbase address %q", MinerEtherbaseFlag.Name, addr)
 		return
 	}
-	cfg.Miner.PendingFeeRecipient = common.BytesToAddress(b)
+	cfg.Miner.Etherbase = common.BytesToAddress(b)
+	//FIXME:Mozda ovo dole ostaje
+	//cfg.Miner.PendingFeeRecipient = common.BytesToAddress(b)
 }
 
 // MakePasswordList reads password lines from the file specified by the global --password flag.
@@ -1552,9 +1569,6 @@ func setBlobPool(ctx *cli.Context, cfg *blobpool.Config) {
 }
 
 func setMiner(ctx *cli.Context, cfg *miner.Config) {
-	if ctx.Bool(MiningEnabledFlag.Name) {
-		log.Warn("The flag --mine is deprecated and will be removed")
-	}
 	if ctx.IsSet(MinerExtraDataFlag.Name) {
 		cfg.ExtraData = []byte(ctx.String(MinerExtraDataFlag.Name))
 	}
@@ -1568,8 +1582,7 @@ func setMiner(ctx *cli.Context, cfg *miner.Config) {
 		cfg.Recommit = ctx.Duration(MinerRecommitIntervalFlag.Name)
 	}
 	if ctx.IsSet(MinerNewPayloadTimeoutFlag.Name) {
-		log.Warn("The flag --miner.newpayload-timeout is deprecated and will be removed, please use --miner.recommit")
-		cfg.Recommit = ctx.Duration(MinerNewPayloadTimeoutFlag.Name)
+		cfg.NewPayloadTimeout = ctx.Duration(MinerNewPayloadTimeoutFlag.Name)
 	}
 }
 
@@ -1844,8 +1857,12 @@ func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *ethconfig.Config) {
 
 		// Figure out the dev account address.
 		// setEtherbase has been called above, configuring the miner address from command line flags.
-		if cfg.Miner.PendingFeeRecipient != (common.Address{}) {
-			developer = accounts.Account{Address: cfg.Miner.PendingFeeRecipient}
+		if cfg.Miner.Etherbase != (common.Address{}) {
+			developer = accounts.Account{Address: cfg.Miner.Etherbase}
+			//FIXME: Da li mi treba i ovo??
+			//}
+			//if cfg.Miner.PendingFeeRecipient != (common.Address{}) {
+			//	developer = accounts.Account{Address: cfg.Miner.PendingFeeRecipient}
 		} else if accs := ks.Accounts(); len(accs) > 0 {
 			developer = ks.Accounts()[0]
 		} else {
@@ -1856,7 +1873,9 @@ func SetEthConfig(ctx *cli.Context, stack *node.Node, cfg *ethconfig.Config) {
 		}
 		// Make sure the address is configured as fee recipient, otherwise
 		// the miner will fail to start.
-		cfg.Miner.PendingFeeRecipient = developer.Address
+		cfg.Miner.Etherbase = developer.Address
+		//FIXME: Da li mi treba i ovo??
+		//cfg.Miner.PendingFeeRecipient = developer.Address
 
 		if err := ks.Unlock(developer, passphrase); err != nil {
 			Fatalf("Failed to unlock developer account: %v", err)

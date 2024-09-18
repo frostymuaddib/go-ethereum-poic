@@ -17,6 +17,9 @@
 // geth is a command-line client for Ethereum.
 package main
 
+/////
+////miner: refactor the miner, make the pending block on demand (#28623)
+/////
 import (
 	"fmt"
 	"os"
@@ -25,24 +28,26 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/console/prompt"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ethereum/go-ethereum/internal/debug"
-	"github.com/ethereum/go-ethereum/internal/flags"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/metrics"
-	"github.com/ethereum/go-ethereum/node"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts/keystore"
+	"github.com/frostymuaddib/go-ethereum-poic/cmd/utils"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/console/prompt"
+	"github.com/frostymuaddib/go-ethereum-poic/eth"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/downloader"
+	"github.com/frostymuaddib/go-ethereum-poic/ethclient"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/debug"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/flags"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/ethapi"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
+	"github.com/frostymuaddib/go-ethereum-poic/metrics"
+	"github.com/frostymuaddib/go-ethereum-poic/node"
 	"go.uber.org/automaxprocs/maxprocs"
 
 	// Force-load the tracer engines to trigger registration
-	_ "github.com/ethereum/go-ethereum/eth/tracers/js"
-	_ "github.com/ethereum/go-ethereum/eth/tracers/live"
-	_ "github.com/ethereum/go-ethereum/eth/tracers/native"
+	_ "github.com/frostymuaddib/go-ethereum-poic/eth/tracers/js"
+	_ "github.com/frostymuaddib/go-ethereum-poic/eth/tracers/live"
+	_ "github.com/frostymuaddib/go-ethereum-poic/eth/tracers/native"
 
 	"github.com/urfave/cli/v2"
 )
@@ -122,6 +127,7 @@ var (
 		utils.MinerExtraDataFlag,
 		utils.MinerRecommitIntervalFlag,
 		utils.MinerPendingFeeRecipientFlag,
+		// utils.MinerNewPayloadTimeout - to je ovo dole
 		utils.MinerNewPayloadTimeoutFlag, // deprecated
 		utils.NATFlag,
 		utils.NoDiscoverFlag,
@@ -344,10 +350,10 @@ func geth(ctx *cli.Context) error {
 	}
 
 	prepare(ctx)
-	stack := makeFullNode(ctx)
+	stack, backend := makeFullNode(ctx)
 	defer stack.Close()
 
-	startNode(ctx, stack, false)
+	startNode(ctx, stack, backend, false)
 	stack.Wait()
 	return nil
 }
@@ -355,7 +361,7 @@ func geth(ctx *cli.Context) error {
 // startNode boots up the system node and all registered protocols, after which
 // it unlocks any requested accounts, and starts the RPC/IPC interfaces and the
 // miner.
-func startNode(ctx *cli.Context, stack *node.Node, isConsole bool) {
+func startNode(ctx *cli.Context, stack *node.Node, backend ethapi.Backend,isConsole bool) {
 	// Start up the node itself
 	utils.StartNode(ctx, stack, isConsole)
 
@@ -425,6 +431,24 @@ func startNode(ctx *cli.Context, stack *node.Node, isConsole bool) {
 				}
 			}
 		}()
+	}
+
+	// Start auxiliary services if enabled
+	if ctx.Bool(utils.MiningEnabledFlag.Name) {
+		// Mining only makes sense if a full Ethereum node is running
+		if ctx.String(utils.SyncModeFlag.Name) == "light" {
+			utils.Fatalf("Light clients do not support mining")
+		}
+		ethBackend, ok := backend.(*eth.EthAPIBackend)
+		if !ok {
+			utils.Fatalf("Ethereum service not running")
+		}
+		// Set the gas price to the limits from the CLI and start mining
+		gasprice := flags.GlobalBig(ctx, utils.MinerGasPriceFlag.Name)
+		ethBackend.TxPool().SetGasTip(gasprice)
+		if err := ethBackend.StartMining(); err != nil {
+			utils.Fatalf("Failed to start mining: %v", err)
+		}
 	}
 }
 

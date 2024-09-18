@@ -23,17 +23,17 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum/beacon/engine"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/frostymuaddib/go-ethereum-poic/beacon/engine"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/core/types"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
+	"github.com/frostymuaddib/go-ethereum-poic/rlp"
 )
 
 // BuildPayloadArgs contains the provided parameters for building payload.
 // Check engine-api specification for more details.
-// https://github.com/ethereum/execution-apis/blob/main/src/engine/cancun.md#payloadattributesv3
+// github.com/ethereum/execution-apis/blob/main/src/engine/cancun.md#payloadattributesv3
 type BuildPayloadArgs struct {
 	Parent       common.Hash           // The parent block to build payload on top
 	Timestamp    uint64                // The provided timestamp of generated payload
@@ -176,7 +176,7 @@ func (payload *Payload) ResolveFull() *engine.ExecutionPayloadEnvelope {
 }
 
 // buildPayload builds the payload according to the provided parameters.
-func (miner *Miner) buildPayload(args *BuildPayloadArgs) (*Payload, error) {
+func (w *worker) buildPayload(args *BuildPayloadArgs) (*Payload, error) {
 	// Build the initial version with no transaction included. It should be fast
 	// enough to run. The empty payload can at least make sure there is something
 	// to deliver for not missing slot.
@@ -190,7 +190,7 @@ func (miner *Miner) buildPayload(args *BuildPayloadArgs) (*Payload, error) {
 		beaconRoot:  args.BeaconRoot,
 		noTxs:       true,
 	}
-	empty := miner.generateWork(emptyParams)
+	empty := w.getSealingBlock(emptyParams)
 	if empty.err != nil {
 		return nil, empty.err
 	}
@@ -226,13 +226,13 @@ func (miner *Miner) buildPayload(args *BuildPayloadArgs) (*Payload, error) {
 			select {
 			case <-timer.C:
 				start := time.Now()
-				r := miner.generateWork(fullParams)
+				r := w.getSealingBlock(fullParams)
 				if r.err == nil {
 					payload.update(r, time.Since(start))
 				} else {
 					log.Info("Error while generating work", "id", payload.id, "err", r.err)
 				}
-				timer.Reset(miner.config.Recommit)
+				timer.Reset(w.recommit)
 			case <-payload.stop:
 				log.Info("Stopping work on payload", "id", payload.id, "reason", "delivery")
 				return

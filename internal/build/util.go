@@ -182,8 +182,8 @@ func UploadSFTP(identityFile, host, dir string, files []string) error {
 	// To work around that, we check the output, and when we see the client
 	// exit command, we do a hard exit.
 	// See
-	// https://github.com/kolban-google/sftp-gcs/issues/23
-	// https://github.com/mscdex/ssh2/pull/1111
+	// github.com/kolban-google/sftp-gcs/issues/23
+	// github.com/mscdex/ssh2/pull/1111
 	aborted := false
 	go func() {
 		scanner := bufio.NewScanner(stdout)

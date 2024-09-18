@@ -16,7 +16,7 @@
 
 package downloader
 
-import "github.com/ethereum/go-ethereum/core/types"
+import "github.com/frostymuaddib/go-ethereum-poic/core/types"
 
 type DoneEvent struct {
 	Latest *types.Header

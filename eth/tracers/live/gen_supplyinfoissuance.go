@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/frostymuaddib/go-ethereum-poic/common/hexutil"
 )
 
 var _ = (*supplyInfoIssuanceMarshaling)(nil)

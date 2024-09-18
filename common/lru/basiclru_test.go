@@ -25,7 +25,7 @@ import (
 )
 
 // Some of these test cases were adapted
-// from https://github.com/hashicorp/golang-lru/blob/master/simplelru/lru_test.go
+// from github.com/hashicorp/golang-lru/blob/master/simplelru/lru_test.go
 
 func TestBasicLRU(t *testing.T) {
 	cache := NewBasicLRU[int, int](128)

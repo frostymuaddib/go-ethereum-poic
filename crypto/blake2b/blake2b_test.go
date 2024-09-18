@@ -343,7 +343,7 @@ func BenchmarkSum1KAVX(b *testing.B)      { benchmarkSum(b, 1024, false, true, f
 func BenchmarkSum128AVX2(b *testing.B)    { benchmarkSum(b, 128, false, false, true) }
 func BenchmarkSum1KAVX2(b *testing.B)     { benchmarkSum(b, 1024, false, false, true) }
 
-// These values were taken from https://blake2.net/blake2b-test.txt.
+// These values were taken from blake2.net/blake2b-test.txt.
 var hashes = []string{
 	"10ebb67700b1868efb4417987acf4690ae9d972fb7a590c2f02871799aaa4786b5e996e8f0f4eb981fc214b005f42d2ff4233499391653df7aefcbc13fc51568",
 	"961f6dd1e4dd30f63901690c512e78e4b45e4742ed197c3c5e45c549fd25f2e4187b0bc9fe30492b16b0d0bc4ef9b0f34c7003fac09a5ef1532e69430234cebd",

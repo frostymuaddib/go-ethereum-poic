@@ -5,8 +5,8 @@
 // Package blake2b implements the BLAKE2b hash algorithm defined by RFC 7693
 // and the extendable output function (XOF) BLAKE2Xb.
 //
-// For a detailed specification of BLAKE2b see https://blake2.net/blake2.pdf
-// and for BLAKE2Xb see https://blake2.net/blake2x.pdf
+// For a detailed specification of BLAKE2b see blake2.net/blake2.pdf
+// and for BLAKE2Xb see blake2.net/blake2x.pdf
 //
 // If you aren't sure which function you need, use BLAKE2b (Sum512 or New512).
 // If you need a secret-key MAC (message authentication code), use the New512

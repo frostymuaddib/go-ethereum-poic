@@ -114,7 +114,7 @@ func DownloadGo(csdb *ChecksumDB) string {
 	} else {
 		file += ".tar.gz"
 	}
-	url := "https://golang.org/dl/" + file
+	url := "golang.org/dl/" + file
 	dst := filepath.Join(ucache, file)
 	if err := csdb.DownloadFile(url, dst); err != nil {
 		log.Fatal(err)
@@ -159,7 +159,7 @@ func DownloadAndVerifyChecksums(csdb *ChecksumDB) {
 		ucache = os.TempDir()
 	)
 	for _, l := range csdb.allChecksums {
-		if strings.HasPrefix(l, "# https://") {
+		if strings.HasPrefix(l, "# ") {
 			base = l[2:]
 			continue
 		}

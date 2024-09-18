@@ -19,16 +19,16 @@ package blsync
 import (
 	"strings"
 
-	"github.com/ethereum/go-ethereum/beacon/light"
-	"github.com/ethereum/go-ethereum/beacon/light/api"
-	"github.com/ethereum/go-ethereum/beacon/light/request"
-	"github.com/ethereum/go-ethereum/beacon/light/sync"
-	"github.com/ethereum/go-ethereum/beacon/types"
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/common/mclock"
-	"github.com/ethereum/go-ethereum/ethdb/memorydb"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/frostymuaddib/go-ethereum-poic/beacon/light"
+	"github.com/frostymuaddib/go-ethereum-poic/beacon/light/api"
+	"github.com/frostymuaddib/go-ethereum-poic/beacon/light/request"
+	"github.com/frostymuaddib/go-ethereum-poic/beacon/light/sync"
+	"github.com/frostymuaddib/go-ethereum-poic/beacon/types"
+	"github.com/frostymuaddib/go-ethereum-poic/cmd/utils"
+	"github.com/frostymuaddib/go-ethereum-poic/common/mclock"
+	"github.com/frostymuaddib/go-ethereum-poic/ethdb/memorydb"
+	"github.com/frostymuaddib/go-ethereum-poic/event"
+	"github.com/frostymuaddib/go-ethereum-poic/rpc"
 	"github.com/urfave/cli/v2"
 )
 

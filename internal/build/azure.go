@@ -38,7 +38,7 @@ type AzureBlobstoreConfig struct {
 // method assumes a max file size of 64MB (Azure limitation). Larger files will
 // need a multi API call approach implemented.
 //
-// See: https://msdn.microsoft.com/en-us/library/azure/dd179451.aspx#Anchor_3
+// See: msdn.microsoft.com/en-us/library/azure/dd179451.aspx#Anchor_3
 func AzureBlobstoreUpload(path string, name string, config AzureBlobstoreConfig) error {
 	if *DryRunFlag {
 		fmt.Printf("would upload %q to %s/%s/%s\n", path, config.Account, config.Container, name)
@@ -49,7 +49,7 @@ func AzureBlobstoreUpload(path string, name string, config AzureBlobstoreConfig)
 	if err != nil {
 		return err
 	}
-	a := fmt.Sprintf("https://%s.blob.core.windows.net/", config.Account)
+	a := fmt.Sprintf("%s.blob.core.windows.net/", config.Account)
 	client, err := azblob.NewClientWithSharedKeyCredential(a, credential, nil)
 	if err != nil {
 		return err
@@ -72,7 +72,7 @@ func AzureBlobstoreList(config AzureBlobstoreConfig) ([]*container.BlobItem, err
 	if err != nil {
 		return nil, err
 	}
-	a := fmt.Sprintf("https://%s.blob.core.windows.net/", config.Account)
+	a := fmt.Sprintf("%s.blob.core.windows.net/", config.Account)
 	client, err := azblob.NewClientWithSharedKeyCredential(a, credential, nil)
 	if err != nil {
 		return nil, err
@@ -104,7 +104,7 @@ func AzureBlobstoreDelete(config AzureBlobstoreConfig, blobs []*container.BlobIt
 	if err != nil {
 		return err
 	}
-	a := fmt.Sprintf("https://%s.blob.core.windows.net/", config.Account)
+	a := fmt.Sprintf("%s.blob.core.windows.net/", config.Account)
 	client, err := azblob.NewClientWithSharedKeyCredential(a, credential, nil)
 	if err != nil {
 		return err

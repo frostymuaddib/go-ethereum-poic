@@ -21,9 +21,9 @@ import (
 	"errors"
 	"os"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/rawdb"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/core/rawdb"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
 	bloomfilter "github.com/holiman/bloomfilter/v2"
 )
 
@@ -53,7 +53,7 @@ type stateBloom struct {
 
 // newStateBloomWithSize creates a brand new state bloom for state generation.
 // The bloom filter will be created by the passing bloom filter size. According
-// to the https://hur.st/bloomfilter/?n=600000000&p=&m=2048MB&k=4, the parameters
+// to the hur.st/bloomfilter/?n=600000000&p=&m=2048MB&k=4, the parameters
 // are picked so that the false-positive rate for mainnet is low enough.
 func newStateBloomWithSize(size uint64) (*stateBloom, error) {
 	bloom, err := bloomfilter.New(size*1024*1024*8, 4)

@@ -22,8 +22,8 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/internal/version"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/version"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
 	"github.com/urfave/cli/v2"
 )
 
@@ -31,7 +31,7 @@ var (
 	VersionCheckUrlFlag = &cli.StringFlag{
 		Name:  "check.url",
 		Usage: "URL to use when checking vulnerabilities",
-		Value: "https://geth.ethereum.org/docs/vulnerabilities/vulnerabilities.json",
+		Value: "geth.ethereum.org/docs/vulnerabilities/vulnerabilities.json",
 	}
 	VersionCheckVersionFlag = &cli.StringFlag{
 		Name:  "check.version",
@@ -57,7 +57,7 @@ The output of this command is supposed to be machine-readable.
 		Usage:     "Checks (online) for known Geth security vulnerabilities",
 		ArgsUsage: "<versionstring (optional)>",
 		Description: `
-The version-check command fetches vulnerability-information from https://geth.ethereum.org/docs/vulnerabilities/vulnerabilities.json, 
+The version-check command fetches vulnerability-information from geth.ethereum.org/docs/vulnerabilities/vulnerabilities.json, 
 and displays information about any security vulnerabilities that affect the currently executing version.
 `,
 	}

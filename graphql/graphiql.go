@@ -27,14 +27,14 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/ethereum/go-ethereum/graphql/internal/graphiql"
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/frostymuaddib/go-ethereum-poic/graphql/internal/graphiql"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
 )
 
 // GraphiQL is an in-browser IDE for exploring GraphiQL APIs.
 // This handler returns GraphiQL when requested.
 //
-// For more information, see https://github.com/graphql/graphiql.
+// For more information, see github.com/graphql/graphiql.
 type GraphiQL struct{}
 
 func respOk(w http.ResponseWriter, body []byte, ctype string) {

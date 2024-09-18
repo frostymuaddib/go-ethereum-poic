@@ -37,7 +37,7 @@ const (
 	contentType      = "application/json"
 )
 
-// https://www.jsonrpc.org/historical/json-rpc-over-http.html#id13
+// www.jsonrpc.org/historical/json-rpc-over-http.html#id13
 var acceptedContentTypes = []string{contentType, "application/json-rpc", "application/jsonrequest"}
 
 type httpConn struct {
@@ -386,7 +386,7 @@ func ContextRequestTimeout(ctx context.Context) (time.Duration, bool) {
 		// the server's true timeout.
 		//
 		// Note: Timeouts are sanitized to be a minimum of 1 second.
-		// Also see issue: https://github.com/golang/go/issues/47229
+		// Also see issue: github.com/golang/go/issues/47229
 		wt -= 100 * time.Millisecond
 		setTimeout(wt)
 	}

@@ -55,10 +55,10 @@ import (
 	"time"
 
 	"github.com/cespare/cp"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto/signify"
-	"github.com/ethereum/go-ethereum/internal/build"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto/signify"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/build"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
 )
 
 var (
@@ -237,13 +237,13 @@ func doInstall(cmdline []string) {
 // buildFlags returns the go tool flags for building.
 func buildFlags(env build.Environment, staticLinking bool, buildTags []string) (flags []string) {
 	var ld []string
-	// See https://github.com/golang/go/issues/33772#issuecomment-528176001
+	// See github.com/golang/go/issues/33772#issuecomment-528176001
 	// We need to set --buildid to the linker here, and also pass --build-id to the
 	// cgo-linker further down.
 	ld = append(ld, "--buildid=none")
 	if env.Commit != "" {
-		ld = append(ld, "-X", "github.com/ethereum/go-ethereum/internal/version.gitCommit="+env.Commit)
-		ld = append(ld, "-X", "github.com/ethereum/go-ethereum/internal/version.gitDate="+env.Date)
+		ld = append(ld, "-X", "github.com/frostymuaddib/go-ethereum-poic/internal/version.gitCommit="+env.Commit)
+		ld = append(ld, "-X", "github.com/frostymuaddib/go-ethereum-poic/internal/version.gitDate="+env.Date)
 	}
 	// Strip DWARF on darwin. This used to be required for certain things,
 	// and there is no downside to this, so we just keep doing it.
@@ -253,7 +253,7 @@ func buildFlags(env build.Environment, staticLinking bool, buildTags []string) (
 	if runtime.GOOS == "linux" {
 		// Enforce the stacksize to 8M, which is the case on most platforms apart from
 		// alpine Linux.
-		// See https://sourceware.org/binutils/docs-2.23.1/ld/Options.html#Options
+		// See sourceware.org/binutils/docs-2.23.1/ld/Options.html#Options
 		// regarding the options --build-id=none and --strip-all. It is needed for
 		// reproducible builds; removing references to temporary files in C-land, and
 		// making build-id reproducably absent.
@@ -344,7 +344,7 @@ func downloadSpecTestFixtures(csdb *build.ChecksumDB, cachedir string) string {
 	}
 	ext := ".tar.gz"
 	base := "fixtures_develop" // TODO(MariusVanDerWijden) rename once the version becomes part of the filename
-	url := fmt.Sprintf("https://github.com/ethereum/execution-spec-tests/releases/download/v%s/%s%s", executionSpecTestsVersion, base, ext)
+	url := fmt.Sprintf("github.com/ethereum/execution-spec-tests/releases/download/v%s/%s%s", executionSpecTestsVersion, base, ext)
 	archivePath := filepath.Join(cachedir, base+ext)
 	if err := csdb.DownloadFile(url, archivePath); err != nil {
 		log.Fatal(err)
@@ -515,7 +515,7 @@ func downloadLinter(cachedir string) string {
 		arch += "v" + os.Getenv("GOARM")
 	}
 	base := fmt.Sprintf("golangci-lint-%s-%s-%s", version, runtime.GOOS, arch)
-	url := fmt.Sprintf("https://github.com/golangci/golangci-lint/releases/download/v%s/%s%s", version, base, ext)
+	url := fmt.Sprintf("github.com/golangci/golangci-lint/releases/download/v%s/%s%s", version, base, ext)
 	archivePath := filepath.Join(cachedir, base+ext)
 	if err := csdb.DownloadFile(url, archivePath); err != nil {
 		log.Fatal(err)
@@ -566,7 +566,7 @@ func downloadProtocGenGo(cachedir string) string {
 		archiveName += ".tar.gz"
 	}
 
-	url := fmt.Sprintf("https://github.com/protocolbuffers/protobuf-go/releases/download/v%s/%s", version, archiveName)
+	url := fmt.Sprintf("github.com/protocolbuffers/protobuf-go/releases/download/v%s/%s", version, archiveName)
 
 	archivePath := path.Join(cachedir, archiveName)
 	if err := csdb.DownloadFile(url, archivePath); err != nil {
@@ -599,7 +599,7 @@ func downloadProtoc(cachedir string) string {
 
 	fileName := fmt.Sprintf("protoc-%s-%s", version, baseName)
 	archiveFileName := fileName + ".zip"
-	url := fmt.Sprintf("https://github.com/protocolbuffers/protobuf/releases/download/v%s/%s", version, archiveFileName)
+	url := fmt.Sprintf("github.com/protocolbuffers/protobuf/releases/download/v%s/%s", version, archiveFileName)
 	archivePath := filepath.Join(cachedir, archiveFileName)
 
 	if err := csdb.DownloadFile(url, archivePath); err != nil {
@@ -986,7 +986,7 @@ func downloadGoBootstrapSources(cachedir string) []string {
 			log.Fatal(err)
 		}
 		file := fmt.Sprintf("go%s.src.tar.gz", gobootVersion)
-		url := "https://dl.google.com/go/" + file
+		url := "dl.google.com/go/" + file
 		dst := filepath.Join(cachedir, file)
 		if err := csdb.DownloadFile(url, dst); err != nil {
 			log.Fatal(err)
@@ -1004,7 +1004,7 @@ func downloadGoSources(cachedir string) string {
 		log.Fatal(err)
 	}
 	file := fmt.Sprintf("go%s.src.tar.gz", dlgoVersion)
-	url := "https://dl.google.com/go/" + file
+	url := "dl.google.com/go/" + file
 	dst := filepath.Join(cachedir, file)
 	if err := csdb.DownloadFile(url, dst); err != nil {
 		log.Fatal(err)
@@ -1160,7 +1160,7 @@ func (meta debMetadata) ExeConflicts(exe debExecutable) string {
 		// Set up the conflicts list so that the *-unstable packages
 		// cannot be installed alongside the regular version.
 		//
-		// https://www.debian.org/doc/debian-policy/ch-relationships.html
+		// www.debian.org/doc/debian-policy/ch-relationships.html
 		// is very explicit about Conflicts: and says that Breaks: should
 		// be preferred and the conflicting files should be handled via
 		// alternates. We might do this eventually but using a conflict is

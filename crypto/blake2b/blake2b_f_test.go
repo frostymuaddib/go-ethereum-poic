@@ -30,7 +30,7 @@ type testVector struct {
 	hOut   [8]uint64
 }
 
-// https://tools.ietf.org/html/rfc7693#appendix-A
+// tools.ietf.org/html/rfc7693#appendix-A
 var testVectorsF = []testVector{
 	{
 		hIn: [8]uint64{

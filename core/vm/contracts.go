@@ -27,14 +27,14 @@ import (
 	bls12381 "github.com/consensys/gnark-crypto/ecc/bls12-381"
 	"github.com/consensys/gnark-crypto/ecc/bls12-381/fp"
 	"github.com/consensys/gnark-crypto/ecc/bls12-381/fr"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/ethereum/go-ethereum/core/tracing"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/crypto/blake2b"
-	"github.com/ethereum/go-ethereum/crypto/bn256"
-	"github.com/ethereum/go-ethereum/crypto/kzg4844"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common/math"
+	"github.com/frostymuaddib/go-ethereum-poic/core/tracing"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto/blake2b"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto/bn256"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto/kzg4844"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
 	"golang.org/x/crypto/ripemd160"
 )
 
@@ -374,7 +374,7 @@ func (c *bigModExp) RequiredGas(input []byte) uint64 {
 	if c.eip2565 {
 		// EIP-2565 has three changes
 		// 1. Different multComplexity (inlined here)
-		// in EIP-2565 (https://eips.ethereum.org/EIPS/eip-2565):
+		// in EIP-2565 (eips.ethereum.org/EIPS/eip-2565):
 		//
 		// def mult_complexity(x):
 		//    ceiling(x/8)^2

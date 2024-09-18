@@ -25,8 +25,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/ethereum/go-ethereum/accounts"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/frostymuaddib/go-ethereum-poic/accounts"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/pbkdf2"
 )
@@ -73,7 +73,7 @@ func decryptPreSaleKey(fileContent []byte, password string) (key *Key, err error
 	iv := encSeedBytes[:16]
 	cipherText := encSeedBytes[16:]
 	/*
-		See https://github.com/ethereum/pyethsaletool
+		See github.com/ethereum/pyethsaletool
 
 		pyethsaletool generates the encryption key from password by
 		2000 rounds of PBKDF2 with HMAC-SHA-256 using password as salt (:().
@@ -128,7 +128,7 @@ func aesCBCDecrypt(key, cipherText, iv []byte) ([]byte, error) {
 	return plaintext, err
 }
 
-// From https://leanpub.com/gocrypto/read#leanpub-auto-block-cipher-modes
+// From leanpub.com/gocrypto/read#leanpub-auto-block-cipher-modes
 func pkcs7Unpad(in []byte) []byte {
 	if len(in) == 0 {
 		return nil

@@ -19,8 +19,8 @@ package simulated
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/eth/ethconfig"
-	"github.com/ethereum/go-ethereum/node"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/ethconfig"
+	"github.com/frostymuaddib/go-ethereum-poic/node"
 )
 
 // WithBlockGasLimit configures the simulated backend to target a specific gas limit

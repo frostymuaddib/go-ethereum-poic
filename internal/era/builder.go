@@ -23,17 +23,17 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/ethereum/go-ethereum/internal/era/e2store"
-	"github.com/ethereum/go-ethereum/rlp"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/core/types"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/era/e2store"
+	"github.com/frostymuaddib/go-ethereum-poic/rlp"
 	"github.com/golang/snappy"
 )
 
 // Builder is used to create Era1 archives of block data.
 //
 // Era1 files are themselves e2store files. For more information on this format,
-// see https://github.com/status-im/nimbus-eth2/blob/stable/docs/e2store.md.
+// see github.com/status-im/nimbus-eth2/blob/stable/docs/e2store.md.
 //
 // The overall structure of an Era1 file follows closely the structure of an Era file
 // which contains consensus Layer data (and as a byproduct, EL data after the merge).

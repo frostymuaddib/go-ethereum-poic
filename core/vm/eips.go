@@ -21,9 +21,9 @@ import (
 	"math"
 	"sort"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/tracing"
-	"github.com/ethereum/go-ethereum/params"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/core/tracing"
+	"github.com/frostymuaddib/go-ethereum-poic/params"
 	"github.com/holiman/uint256"
 )
 
@@ -119,7 +119,7 @@ func enable2200(jt *JumpTable) {
 }
 
 // enable2929 enables "EIP-2929: Gas cost increases for state access opcodes"
-// https://eips.ethereum.org/EIPS/eip-2929
+// eips.ethereum.org/EIPS/eip-2929
 func enable2929(jt *JumpTable) {
 	jt[SSTORE].dynamicGas = gasSStoreEIP2929
 
@@ -241,14 +241,14 @@ func opPush0(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]by
 }
 
 // enable3860 enables "EIP-3860: Limit and meter initcode"
-// https://eips.ethereum.org/EIPS/eip-3860
+// eips.ethereum.org/EIPS/eip-3860
 func enable3860(jt *JumpTable) {
 	jt[CREATE].dynamicGas = gasCreateEip3860
 	jt[CREATE2].dynamicGas = gasCreate2Eip3860
 }
 
 // enable5656 enables EIP-5656 (MCOPY opcode)
-// https://eips.ethereum.org/EIPS/eip-5656
+// eips.ethereum.org/EIPS/eip-5656
 func enable5656(jt *JumpTable) {
 	jt[MCOPY] = &operation{
 		execute:     opMcopy,
@@ -260,7 +260,7 @@ func enable5656(jt *JumpTable) {
 	}
 }
 
-// opMcopy implements the MCOPY opcode (https://eips.ethereum.org/EIPS/eip-5656)
+// opMcopy implements the MCOPY opcode (eips.ethereum.org/EIPS/eip-5656)
 func opMcopy(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
 	var (
 		dst    = scope.Stack.pop()

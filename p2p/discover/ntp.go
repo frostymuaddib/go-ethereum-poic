@@ -15,7 +15,7 @@
 // along with the go-ethereum library. If not, see <http://www.gnu.org/licenses/>.
 
 // Contains the NTP time drift detection via the SNTP protocol:
-//   https://tools.ietf.org/html/rfc4330
+//   tools.ietf.org/html/rfc4330
 
 package discover
 
@@ -25,7 +25,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
 )
 
 const (

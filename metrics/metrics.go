@@ -1,8 +1,8 @@
 // Go port of Coda Hale's Metrics library
 //
-// <https://github.com/rcrowley/go-metrics>
+// <github.com/rcrowley/go-metrics>
 //
-// Coda Hale's original work: <https://github.com/codahale/metrics>
+// Coda Hale's original work: <github.com/codahale/metrics>
 package metrics
 
 import (
@@ -14,7 +14,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/ethereum/go-ethereum/log"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
 )
 
 // Enabled is checked by the constructor functions for all of the

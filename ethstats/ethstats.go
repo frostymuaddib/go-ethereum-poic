@@ -30,18 +30,19 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ethereum/go-ethereum"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/mclock"
-	"github.com/ethereum/go-ethereum/consensus"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/types"
-	ethproto "github.com/ethereum/go-ethereum/eth/protocols/eth"
-	"github.com/ethereum/go-ethereum/event"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/node"
-	"github.com/ethereum/go-ethereum/p2p"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/frostymuaddib/go-ethereum-poic"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/common/mclock"
+	"github.com/frostymuaddib/go-ethereum-poic/consensus"
+	"github.com/frostymuaddib/go-ethereum-poic/core"
+	"github.com/frostymuaddib/go-ethereum-poic/core/types"
+	ethproto "github.com/frostymuaddib/go-ethereum-poic/eth/protocols/eth"
+	"github.com/frostymuaddib/go-ethereum-poic/event"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
+	"github.com/frostymuaddib/go-ethereum-poic/miner"
+	"github.com/frostymuaddib/go-ethereum-poic/node"
+	"github.com/frostymuaddib/go-ethereum-poic/p2p"
+	"github.com/frostymuaddib/go-ethereum-poic/rpc"
 	"github.com/gorilla/websocket"
 )
 
@@ -77,6 +78,13 @@ type fullNodeBackend interface {
 	BlockByNumber(ctx context.Context, number rpc.BlockNumber) (*types.Block, error)
 	CurrentBlock() *types.Header
 	SuggestGasTipCap(ctx context.Context) (*big.Int, error)
+}
+
+// miningNodeBackend encompasses the functionality necessary for a mining node
+// reporting to ethstats
+type miningNodeBackend interface {
+	fullNodeBackend
+	Miner() *miner.Miner
 }
 
 // Service implements an Ethereum netstats reporting daemon that pushes local
@@ -261,7 +269,7 @@ func (s *Service) loop(chainHeadCh chan core.ChainHeadEvent, txEventCh chan core
 	path := fmt.Sprintf("%s/api", s.host)
 	urls := []string{path}
 
-	// url.Parse and url.IsAbs is unsuitable (https://github.com/golang/go/issues/19779)
+	// url.Parse and url.IsAbs is unsuitable (github.com/golang/go/issues/19779)
 	if !strings.Contains(path, "://") {
 		urls = []string{"wss://" + path, "ws://" + path}
 	}
@@ -772,21 +780,30 @@ func (s *Service) reportPending(conn *connWrapper) error {
 type nodeStats struct {
 	Active   bool `json:"active"`
 	Syncing  bool `json:"syncing"`
+	Mining   bool `json:"mining"`
+	Hashrate int  `json:"hashrate"`
 	Peers    int  `json:"peers"`
 	GasPrice int  `json:"gasPrice"`
 	Uptime   int  `json:"uptime"`
 }
 
-// reportStats retrieves various stats about the node at the networking layer
-// and reports it to the stats server.
+// reportStats retrieves various stats about the node at the networking and
+// mining layer and reports it to the stats server.
 func (s *Service) reportStats(conn *connWrapper) error {
-	// Gather the syncing infos from the local miner instance
+	// Gather the syncing and mining infos from the local miner instance
 	var (
+		mining   bool
+		hashrate int
 		syncing  bool
 		gasprice int
 	)
 	// check if backend is a full node
 	if fullBackend, ok := s.backend.(fullNodeBackend); ok {
+		if miningBackend, ok := s.backend.(miningNodeBackend); ok {
+			mining = miningBackend.Miner().Mining()
+			hashrate = int(miningBackend.Miner().Hashrate())
+		}
+
 		sync := fullBackend.SyncProgress()
 		syncing = !sync.Done()
 
@@ -806,6 +823,8 @@ func (s *Service) reportStats(conn *connWrapper) error {
 		"id": s.node,
 		"stats": &nodeStats{
 			Active:   true,
+			Mining:   mining,
+			Hashrate: hashrate,
 			Peers:    s.server.PeerCount(),
 			GasPrice: gasprice,
 			Syncing:  syncing,

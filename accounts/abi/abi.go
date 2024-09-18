@@ -24,8 +24,8 @@ import (
 	"io"
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/crypto"
 )
 
 // The ABI holds information about a contract's context and available
@@ -169,14 +169,14 @@ func (abi *ABI) UnmarshalJSON(data []byte) error {
 			abi.Methods[name] = NewMethod(name, field.Name, Function, field.StateMutability, field.Constant, field.Payable, field.Inputs, field.Outputs)
 		case "fallback":
 			// New introduced function type in v0.6.0, check more detail
-			// here https://solidity.readthedocs.io/en/v0.6.0/contracts.html#fallback-function
+			// here solidity.readthedocs.io/en/v0.6.0/contracts.html#fallback-function
 			if abi.HasFallback() {
 				return errors.New("only single fallback is allowed")
 			}
 			abi.Fallback = NewMethod("", "", Fallback, field.StateMutability, field.Constant, field.Payable, nil, nil)
 		case "receive":
 			// New introduced function type in v0.6.0, check more detail
-			// here https://solidity.readthedocs.io/en/v0.6.0/contracts.html#fallback-function
+			// here solidity.readthedocs.io/en/v0.6.0/contracts.html#fallback-function
 			if abi.HasReceive() {
 				return errors.New("only single receive is allowed")
 			}
@@ -252,9 +252,9 @@ var panicSelector = crypto.Keccak256([]byte("Panic(uint256)"))[:4]
 
 // panicReasons map is for readable panic codes
 // see this linkage for the details
-// https://docs.soliditylang.org/en/v0.8.21/control-structures.html#panic-via-assert-and-error-via-require
+// docs.soliditylang.org/en/v0.8.21/control-structures.html#panic-via-assert-and-error-via-require
 // the reason string list is copied from ether.js
-// https://github.com/ethers-io/ethers.js/blob/fa3a883ff7c88611ce766f58bdd4b8ac90814470/src.ts/abi/interface.ts#L207-L218
+// github.com/ethers-io/ethers.js/blob/fa3a883ff7c88611ce766f58bdd4b8ac90814470/src.ts/abi/interface.ts#L207-L218
 var panicReasons = map[uint64]string{
 	0x00: "generic panic",
 	0x01: "assert(false)",
@@ -269,7 +269,7 @@ var panicReasons = map[uint64]string{
 }
 
 // UnpackRevert resolves the abi-encoded revert reason. According to the solidity
-// spec https://solidity.readthedocs.io/en/latest/control-structures.html#revert,
+// spec solidity.readthedocs.io/en/latest/control-structures.html#revert,
 // the provided revert reason is abi-encoded as if it were a call to function
 // `Error(string)` or `Panic(uint256)`. So it's a special tool for it.
 func UnpackRevert(data []byte) (string, error) {

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/ethereum/go-ethereum/core/tracing"
+	"github.com/frostymuaddib/go-ethereum-poic/core/tracing"
 )
 
 type ctorFunc func(config json.RawMessage) (*tracing.Hooks, error)

@@ -28,9 +28,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ethereum/go-ethereum/internal/testlog"
-	"github.com/ethereum/go-ethereum/log"
-	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/testlog"
+	"github.com/frostymuaddib/go-ethereum-poic/log"
+	"github.com/frostymuaddib/go-ethereum-poic/rpc"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/gorilla/websocket"
 	"github.com/stretchr/testify/assert"
@@ -89,63 +89,63 @@ func TestWebsocketOrigins(t *testing.T) {
 	tests := []originTest{
 		{
 			spec: "*", // allow all
-			expOk: []string{"", "http://test", "https://test", "http://test:8540", "https://test:8540",
-				"http://test.com", "https://foo.test", "http://testa", "http://atestb:8540", "https://atestb:8540"},
+			expOk: []string{"", "http://test", "test", "http://test:8540", "test:8540",
+				"http://test.com", "foo.test", "http://testa", "http://atestb:8540", "atestb:8540"},
 		},
 		{
 			spec:    "test",
-			expOk:   []string{"http://test", "https://test", "http://test:8540", "https://test:8540"},
-			expFail: []string{"http://test.com", "https://foo.test", "http://testa", "http://atestb:8540", "https://atestb:8540"},
+			expOk:   []string{"http://test", "test", "http://test:8540", "test:8540"},
+			expFail: []string{"http://test.com", "foo.test", "http://testa", "http://atestb:8540", "atestb:8540"},
 		},
 		// scheme tests
 		{
-			spec:  "https://test",
-			expOk: []string{"https://test", "https://test:9999"},
+			spec:  "test",
+			expOk: []string{"test", "test:9999"},
 			expFail: []string{
 				"test",                                // no scheme, required by spec
 				"http://test",                         // wrong scheme
-				"http://test.foo", "https://a.test.x", // subdomain variations
-				"http://testx:8540", "https://xtest:8540"},
+				"http://test.foo", "a.test.x", // subdomain variations
+				"http://testx:8540", "xtest:8540"},
 		},
 		// ip tests
 		{
-			spec:  "https://12.34.56.78",
-			expOk: []string{"https://12.34.56.78", "https://12.34.56.78:8540"},
+			spec:  "12.34.56.78",
+			expOk: []string{"12.34.56.78", "12.34.56.78:8540"},
 			expFail: []string{
 				"http://12.34.56.78",     // wrong scheme
 				"http://12.34.56.78:443", // wrong scheme
 				"http://1.12.34.56.78",   // wrong 'domain name'
 				"http://12.34.56.78.a",   // wrong 'domain name'
-				"https://87.65.43.21", "http://87.65.43.21:8540", "https://87.65.43.21:8540"},
+				"87.65.43.21", "http://87.65.43.21:8540", "87.65.43.21:8540"},
 		},
 		// port tests
 		{
 			spec:  "test:8540",
-			expOk: []string{"http://test:8540", "https://test:8540"},
+			expOk: []string{"http://test:8540", "test:8540"},
 			expFail: []string{
-				"http://test", "https://test", // spec says port required
-				"http://test:8541", "https://test:8541", // wrong port
-				"http://bad", "https://bad", "http://bad:8540", "https://bad:8540"},
+				"http://test", "test", // spec says port required
+				"http://test:8541", "test:8541", // wrong port
+				"http://bad", "bad", "http://bad:8540", "bad:8540"},
 		},
 		// scheme and port
 		{
-			spec:  "https://test:8540",
-			expOk: []string{"https://test:8540"},
+			spec:  "test:8540",
+			expOk: []string{"test:8540"},
 			expFail: []string{
-				"https://test",                          // missing port
+				"test",                          // missing port
 				"http://test",                           // missing port, + wrong scheme
 				"http://test:8540",                      // wrong scheme
-				"http://test:8541", "https://test:8541", // wrong port
-				"http://bad", "https://bad", "http://bad:8540", "https://bad:8540"},
+				"http://test:8541", "test:8541", // wrong port
+				"http://bad", "bad", "http://bad:8540", "bad:8540"},
 		},
 		// several allowed origins
 		{
 			spec: "localhost,http://127.0.0.1",
-			expOk: []string{"localhost", "http://localhost", "https://localhost:8443",
+			expOk: []string{"localhost", "http://localhost", "localhost:8443",
 				"http://127.0.0.1", "http://127.0.0.1:8080"},
 			expFail: []string{
-				"https://127.0.0.1", // wrong scheme
-				"http://bad", "https://bad", "http://bad:8540", "https://bad:8540"},
+				"127.0.0.1", // wrong scheme
+				"http://bad", "bad", "http://bad:8540", "bad:8540"},
 		},
 	}
 	for _, tc := range tests {

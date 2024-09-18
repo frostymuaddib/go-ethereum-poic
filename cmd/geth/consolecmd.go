@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/cmd/utils"
-	"github.com/ethereum/go-ethereum/console"
-	"github.com/ethereum/go-ethereum/internal/flags"
+	"github.com/frostymuaddib/go-ethereum-poic/cmd/utils"
+	"github.com/frostymuaddib/go-ethereum-poic/console"
+	"github.com/frostymuaddib/go-ethereum-poic/internal/flags"
 	"github.com/urfave/cli/v2"
 )
 
@@ -37,7 +37,7 @@ var (
 		Description: `
 The Geth console is an interactive shell for the JavaScript runtime environment
 which exposes a node admin interface as well as the Ðapp JavaScript API.
-See https://geth.ethereum.org/docs/interacting-with-geth/javascript-console.`,
+See geth.ethereum.org/docs/interacting-with-geth/javascript-console.`,
 	}
 
 	attachCommand = &cli.Command{
@@ -49,7 +49,7 @@ See https://geth.ethereum.org/docs/interacting-with-geth/javascript-console.`,
 		Description: `
 The Geth console is an interactive shell for the JavaScript runtime environment
 which exposes a node admin interface as well as the Ðapp JavaScript API.
-See https://geth.ethereum.org/docs/interacting-with-geth/javascript-console.
+See geth.ethereum.org/docs/interacting-with-geth/javascript-console.
 This command allows to open a console on a running geth node.`,
 	}
 
@@ -61,7 +61,7 @@ This command allows to open a console on a running geth node.`,
 		Flags:     flags.Merge(nodeFlags, consoleFlags),
 		Description: `
 The JavaScript VM exposes a node admin interface as well as the Ðapp
-JavaScript API. See https://geth.ethereum.org/docs/interacting-with-geth/javascript-console`,
+JavaScript API. See geth.ethereum.org/docs/interacting-with-geth/javascript-console`,
 	}
 )
 
@@ -70,8 +70,8 @@ JavaScript API. See https://geth.ethereum.org/docs/interacting-with-geth/javascr
 func localConsole(ctx *cli.Context) error {
 	// Create and start the node based on the CLI flags
 	prepare(ctx)
-	stack := makeFullNode(ctx)
-	startNode(ctx, stack, true)
+	stack, backend := makeFullNode(ctx)
+	startNode(ctx, stack, backend, true)
 	defer stack.Close()
 
 	// Attach to the newly started node and create the JavaScript console.

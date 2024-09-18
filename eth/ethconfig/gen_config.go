@@ -5,13 +5,13 @@ package ethconfig
 import (
 	"time"
 
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core"
-	"github.com/ethereum/go-ethereum/core/txpool/blobpool"
-	"github.com/ethereum/go-ethereum/core/txpool/legacypool"
-	"github.com/ethereum/go-ethereum/eth/downloader"
-	"github.com/ethereum/go-ethereum/eth/gasprice"
-	"github.com/ethereum/go-ethereum/miner"
+	"github.com/frostymuaddib/go-ethereum-poic/common"
+	"github.com/frostymuaddib/go-ethereum-poic/core"
+	"github.com/frostymuaddib/go-ethereum-poic/core/txpool/blobpool"
+	"github.com/frostymuaddib/go-ethereum-poic/core/txpool/legacypool"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/downloader"
+	"github.com/frostymuaddib/go-ethereum-poic/eth/gasprice"
+	"github.com/frostymuaddib/go-ethereum-poic/miner"
 )
 
 // MarshalTOML marshals as TOML.

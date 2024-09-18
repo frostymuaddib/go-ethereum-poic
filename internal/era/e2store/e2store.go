@@ -36,7 +36,7 @@ type Entry struct {
 
 // Writer writes entries using e2store encoding.
 // For more information on this format, see:
-// https://github.com/status-im/nimbus-eth2/blob/stable/docs/e2store.md
+// github.com/status-im/nimbus-eth2/blob/stable/docs/e2store.md
 type Writer struct {
 	w io.Writer
 }
@@ -66,7 +66,7 @@ func (w *Writer) Write(typ uint16, b []byte) (int, error) {
 
 // A Reader reads entries from an e2store-encoded file.
 // For more information on this format, see
-// https://github.com/status-im/nimbus-eth2/blob/stable/docs/e2store.md
+// github.com/status-im/nimbus-eth2/blob/stable/docs/e2store.md
 type Reader struct {
 	r      io.ReaderAt
 	offset int64

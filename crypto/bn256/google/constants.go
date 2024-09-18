@@ -22,7 +22,7 @@ var P = bigFromBase10("218882428718392752222464057452572750886963111572978236626
 // Order is the number of elements in both G₁ and G₂: 36u⁴+36u³+18u²+6u+1.
 // Needs to be highly 2-adic for efficient SNARK key and proof generation.
 // Order - 1 = 2^28 * 3^2 * 13 * 29 * 983 * 11003 * 237073 * 405928799 * 1670836401704629 * 13818364434197438864469338081.
-// Refer to https://eprint.iacr.org/2013/879.pdf and https://eprint.iacr.org/2013/507.pdf for more information on these parameters.
+// Refer to eprint.iacr.org/2013/879.pdf and eprint.iacr.org/2013/507.pdf for more information on these parameters.
 var Order = bigFromBase10("21888242871839275222246405745257275088548364400416034343698204186575808495617")
 
 // xiToPMinus1Over6 is ξ^((p-1)/6) where ξ = i+9.
