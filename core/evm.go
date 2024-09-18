@@ -18,7 +18,8 @@ package core
 
 import (
 	"math/big"
-
+	"fmt"
+	
 	"github.com/frostymuaddib/go-ethereum-poic/common"
 	"github.com/frostymuaddib/go-ethereum-poic/consensus"
 	"github.com/frostymuaddib/go-ethereum-poic/consensus/misc/eip4844"
@@ -59,9 +60,13 @@ func NewEVMBlockContext(header *types.Header, chain ChainContext, author *common
 	if header.ExcessBlobGas != nil {
 		blobBaseFee = eip4844.CalcBlobFee(*header.ExcessBlobGas)
 	}
-	if header.Difficulty.Sign() == 0 {
+	//MILAN: Resenje za push0, zakomentarisati sign...
+	fmt.Println("Difficulty")
+	fmt.Println(header.Difficulty.Sign())
+	//if header.Difficulty.Sign() == 0 {
 		random = &header.MixDigest
-	}
+		fmt.Println(&header.MixDigest)
+	//}
 	return vm.BlockContext{
 		CanTransfer: CanTransfer,
 		Transfer:    Transfer,

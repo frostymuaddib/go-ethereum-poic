@@ -829,9 +829,6 @@ func (w *worker) applyTransaction(env *environment, tx *types.Transaction) (*typ
 		snap = env.state.Snapshot()
 		gp   = env.gasPool.Gas()
 	)
-	fmt.Print("\n\n\n")
-	fmt.Print(w.chainConfig.ShanghaiTime)
-	fmt.Print("\n\n\n")
 	receipt, err := core.ApplyTransaction(w.chainConfig, w.chain, &env.coinbase, env.gasPool, env.state, env.header, tx, &env.header.GasUsed, *w.chain.GetVMConfig())
 	if err != nil {
 		env.state.RevertToSnapshot(snap)
@@ -1230,7 +1227,7 @@ func (w *worker) commit(env *environment, interval func(), update bool, start ti
 			return err
 		}
 		// If we're post merge, just ignore
-		if !w.isTTDReached(block.Header()) {
+		//if !w.isTTDReached(block.Header()) {
 			select {
 			case w.taskCh <- &task{receipts: env.receipts, state: env.state, block: block, createdAt: time.Now()}:
 				fees := totalFees(block, env.receipts)
@@ -1242,7 +1239,7 @@ func (w *worker) commit(env *environment, interval func(), update bool, start ti
 			case <-w.exitCh:
 				log.Info("Worker has exited")
 			}
-		}
+		//}
 	}
 	if update {
 		w.updateSnapshot(env)

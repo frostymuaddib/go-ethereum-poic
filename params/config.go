@@ -566,10 +566,7 @@ func (c *ChainConfig) IsTerminalPoWBlock(parentTotalDiff *big.Int, totalDiff *bi
 
 // IsShanghai returns whether time is either equal to the Shanghai fork time or greater.
 func (c *ChainConfig) IsShanghai(num *big.Int, time uint64) bool {
-	fmt.Print("\n\n\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-	fmt.Print(c.IsLondon(num) && isTimestampForked(c.ShanghaiTime, time))
-	fmt.Print("\n\n\n")
-
+	
 	return c.IsLondon(num) && isTimestampForked(c.ShanghaiTime, time)
 }
 
@@ -819,7 +816,7 @@ func isForkTimestampIncompatible(s1, s2 *uint64, head uint64) bool {
 // isTimestampForked returns whether a fork scheduled at timestamp s is active
 // at the given head timestamp. Whilst this method is the same as isBlockForked,
 // they are explicitly separate for clearer reading.
-func isTimestampForked(s *uint64, head uint64) bool {
+func isTimestampForked(s *uint64, head uint64) bool {	
 	if s == nil {
 		return false
 	}

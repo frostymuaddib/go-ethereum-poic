@@ -163,7 +163,7 @@ func Create(input []byte, cfg *Config) ([]byte, common.Address, uint64, error) {
 		cfg = new(Config)
 	}
 	setDefaults(cfg)
-
+	
 	if cfg.State == nil {
 		cfg.State, _ = state.New(types.EmptyRootHash, state.NewDatabase(rawdb.NewMemoryDatabase()), nil)
 	}
