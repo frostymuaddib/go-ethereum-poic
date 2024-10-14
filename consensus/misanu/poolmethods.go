@@ -121,3 +121,7 @@ func (p *PoIC) lookIntoRow(firstColumn uint64, value uint64, numOfBits uint64) (
 	}
 	return nil, nil
 }
+
+func (p *PoIC) GetTable() (*TradeoffTable) {
+	return p.table
+}
