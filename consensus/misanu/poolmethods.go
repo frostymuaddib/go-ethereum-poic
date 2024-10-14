@@ -3,6 +3,8 @@ package misanu
 import (
 	"errors"
 	"sort"
+
+	"github.com/frostymuaddib/go-ethereum-poic/consensus/misanu/guicolour"
 )
 
 func (p *PoIC) SearchTableFoRows(value uint64, numOfBits uint64, abort chan struct{}) ([]uint64, error) {
@@ -83,4 +85,39 @@ func (p *PoIC) getX(value uint64, numOfBits uint64, abort chan struct{}, rez cha
 		}
 	}
 
+}
+
+func (p *PoIC) SearchRow(value uint64, rows []uint64, numOfBits uint64) *uint64 {
+	//guicolour.BrightWhitePrintf(true, "Редови који се претражују %v \n", rows)
+	for i := 0; i < len(rows); i++ {
+		rez, err := p.lookIntoRow(rows[i], value, numOfBits)
+		if err != nil {
+			//function aborted, return
+			return nil
+		}
+		if rez != nil {
+			guicolour.BrightCyanPrintf(true, "Вредност пронађена %d\n", *rez)
+			return rez
+		}
+	}
+	return nil
+}
+
+func (p *PoIC) lookIntoRow(firstColumn uint64, value uint64, numOfBits uint64) (*uint64, error) {
+	var ret *uint64
+	mod := uint64(1 << numOfBits)
+	pocetno := firstColumn //% mod
+	for i := uint64(0); i < p.table.tableWidth; i++ {
+		novo := fillTo56WithOnes(pocetno, numOfBits)
+		novo = Convert56to64Des(novo)
+		novo = encoder.EncodingFunction(novo, numOfBits)
+		if novo%mod == value%mod {
+			ret = new(uint64)
+			*ret = pocetno
+			return ret, nil
+		} else {
+			pocetno = novo
+		}
+	}
+	return nil, nil
 }
